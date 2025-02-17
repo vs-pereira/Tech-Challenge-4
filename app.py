@@ -212,7 +212,7 @@ try:
     image_url = "https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/foto%20capa.jpg"
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
-    st.image(image, width=35, use_container_width=True)
+    st.image(image, width=85)
 except Exception as e:
     st.write("Imagem não disponível.")
 
