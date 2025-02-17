@@ -212,8 +212,8 @@ try:
     image_url = "https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/foto%20capa.jpg"
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
-    st.image(image, width=85, use_column_width=True)
+    st.image(image, width=45, use_column_width=True)
 except Exception as e:
     st.write("Imagem não disponível.")
 
-st.markdown('<p class="footer">Tech Challenge 4 - Vitor Squecola Pereira (vitor.squecola@gmail.com e Daniel Udala (daniel.udala@outlook.com)</p>', unsafe_allow_html=True)
+st.markdown('<p class="footer">Vitor Squecola Pereira (vitor.squecola@gmail.com) e Daniel Udala (daniel.udala@outlook.com)</p>', unsafe_allow_html=True)
