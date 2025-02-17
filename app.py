@@ -6,24 +6,24 @@ import datetime
 import requests
 from PIL import Image
 from io import BytesIO
-import os
 from tensorflow.keras.models import load_model
+import joblib
 
-MODEL_PATH = "meu_modelo.h5"
-
-if os.path.exists(MODEL_PATH):
-    try:
-        # Carrega o modelo sem compilá-lo
-        model = load_model(MODEL_PATH, compile=False)
-        st.success("Modelo LSTM carregado com sucesso!")
-    except Exception as e:
-        st.error(f"Erro ao carregar o modelo LSTM. Verifique se o arquivo '{MODEL_PATH}' está disponível.\nDetalhes: {e}")
-        st.stop()
-else:
-    st.error(f"Arquivo '{MODEL_PATH}' não foi encontrado. Verifique se o caminho está correto.")
+# Carrega o modelo LSTM salvo
+try:
+    model = load_model("meu_modelo.h5")
+except Exception as e:
+    st.error("Erro ao carregar o modelo LSTM. Verifique se o arquivo 'meu_modelo.h5' está disponível.\nDetalhes: " + str(e))
     st.stop()
 
-# Defina o tamanho da sequência conforme utilizado no treinamento do seu modelo
+# Carrega o scaler salvo (utilizado para normalizar os dados no treinamento)
+try:
+    scaler = joblib.load("scaler.save")
+except Exception as e:
+    st.error("Erro ao carregar o scaler. Verifique se o arquivo 'scaler.save' está disponível.\nDetalhes: " + str(e))
+    st.stop()
+
+# Define o tamanho da sequência conforme utilizado no treinamento do modelo (no seu notebook é 60)
 SEQUENCE_LENGTH = 60
 
 # Título principal e informações do repositório
@@ -37,16 +37,31 @@ aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 # Função para previsão utilizando o modelo LSTM carregado
 def predict_future_price(selected_date):
     """
-    Simula a previsão do preço do petróleo.
-    Em um cenário real, essa função deve:
-      - Obter os dados históricos relevantes até 'selected_date'
+    Realiza a previsão do preço do petróleo utilizando o modelo LSTM treinado.
+    
+    Para este exemplo, criamos uma sequência dummy com dados históricos fictícios (valores entre 60 e 80)
+    e aplicamos o mesmo escalonamento utilizado no treinamento.
+    
+    Em uma implementação real, você deve:
+      - Carregar os dados históricos reais até a data selecionada
       - Realizar o pré-processamento (normalização, criação de sequências, etc.)
-      - Gerar a sequência de entrada de forma consistente com o treinamento
-    Neste exemplo, geramos uma sequência dummy aleatória.
+      - Gerar a sequência de entrada conforme o treinamento.
     """
-    # Cria uma sequência dummy com valores aleatórios para simulação
-    dummy_sequence = np.random.rand(1, SEQUENCE_LENGTH, 1)
-    pred = model.predict(dummy_sequence)
+    # Gera uma sequência dummy com valores entre 60 e 80 (exemplo: preços históricos fictícios)
+    dummy_history = np.linspace(60, 80, SEQUENCE_LENGTH)
+    
+    # Normaliza os dados usando o scaler carregado
+    dummy_history_scaled = scaler.transform(dummy_history.reshape(-1, 1))
+    
+    # Prepara o input com a forma (batch_size, sequence_length, features)
+    input_sequence = np.array(dummy_history_scaled).reshape(1, SEQUENCE_LENGTH, 1)
+    
+    # Realiza a previsão (a saída estará na escala normalizada)
+    pred_scaled = model.predict(input_sequence)
+    
+    # Converte a previsão para a escala original
+    pred = scaler.inverse_transform(pred_scaled)
+    
     return np.round(pred[0, 0], 2)
 
 # Aba 1: Contexto
@@ -59,7 +74,7 @@ if aba_selecionada == "Contexto":
     - O desafio consiste em desenvolver um dashboard interativo que gere insights relevantes para a tomada de decisão, além de um modelo de Machine Learning para previsão dos preços do petróleo.
     
     **Contextualização da Variação dos Preços de Petróleo:**
-    - Os preços do petróleo são influenciados por fatores como eventos geopolíticos, crises econômicas, e a demanda global por energia.
+    - Os preços do petróleo são influenciados por fatores como eventos geopolíticos, crises econômicas e a demanda global por energia.
     - Essas variações refletem a complexidade do mercado internacional e sua dinâmica em resposta a acontecimentos globais.
     """)
     st.write("Para mais detalhes, consulte o notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).")
@@ -116,18 +131,18 @@ elif aba_selecionada == "Simulação":
     Insira uma data para obter a previsão do preço do petróleo com base no modelo LSTM.
     """)
     
-    # Interface para simulação: seleção de data
+    # Interface para simulação
     data_simulacao = st.date_input("Selecione a data para previsão", value=datetime.date.today())
     if st.button("Prever"):
-        try:
-            previsao = predict_future_price(data_simulacao)
-            st.write(f"A previsão do preço do petróleo para **{data_simulacao}** é de **US$ {previsao}**.")
-        except Exception as e:
-            st.error(f"Erro ao realizar a previsão: {e}")
+        previsao = predict_future_price(data_simulacao)
+        # Formata a data para o padrão DD/MM/YYYY
+        data_formatada = data_simulacao.strftime("%d/%m/%Y")
+        st.write(f"A previsão do preço do petróleo para **{data_formatada}** é de **US$ {previsao}**.")
         
         # Exemplo de gráfico para visualização (simulação)
+        # Geramos 5 datas a partir da data selecionada e valores em torno da previsão
         datas = pd.date_range(start=data_simulacao, periods=5, freq='D')
-        valores = np.random.uniform(50, 100, size=5)
+        valores = previsao + np.random.uniform(-5, 5, size=5)
         fig, ax = plt.subplots(figsize=(10, 5))
         ax.plot(datas, valores, marker='o', linestyle='--', color='green')
         ax.set_xlabel("Data")
