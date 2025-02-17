@@ -15,7 +15,6 @@ if os.path.exists(MODEL_PATH):
     try:
         # Carrega o modelo sem compilá-lo
         model = load_model(MODEL_PATH, compile=False)
-        st.success("Modelo LSTM carregado com sucesso!")
     except Exception as e:
         st.error(f"Erro ao carregar o modelo LSTM. Verifique se o arquivo '{MODEL_PATH}' está disponível.\nDetalhes: {e}")
         st.stop()
