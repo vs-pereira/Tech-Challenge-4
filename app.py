@@ -236,98 +236,98 @@ plt.show()
 print("Tabela de Dados (Histórico + Previsão) para o Período de 01/01/2025 a 25/02/2025:")
 print(df_zoom[['Data', 'Preco do Petroleo', 'Tipo']].to_string(index=False))
 
-"""# MVP do deploy"""
+# MVP do deploy
 
 # Commented out IPython magic to ensure Python compatibility.
-# %%writefile app.py
-# import streamlit as st
-# import pandas as pd
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import datetime
-# 
-# def predict_future(model, data, num_prediction, sequence_length, scaler):
-#     prediction_list = [float(item) for item in data[-sequence_length:]]
-#     for _ in range(num_prediction):
-#         x = np.array(prediction_list[-sequence_length:], dtype=float).reshape((1, sequence_length, 1))
-#         out = model.predict(x)[0][0]
-#         prediction_list.append(out)
-#     prediction_list = prediction_list[sequence_length:]
-#     prediction_list = scaler.inverse_transform(np.array(prediction_list).reshape(-1, 1))
-#     return prediction_list
-# 
-# def predict_dates(last_date, num_prediction):
-#     return pd.date_range(start=last_date + datetime.timedelta(days=1), periods=num_prediction).tolist()
-# 
-# # Carregar dados de exemplo (substitua pelo seu carregamento real)
-# df_filtered = pd.DataFrame({
-#     'Data': pd.date_range(start='2025-01-01', periods=50, freq='D'),
-#     'Preco do Petroleo': np.random.uniform(50, 100, 50)
-# })
-# df_filtered['Data'] = pd.to_datetime(df_filtered['Data'])
-# 
-# from sklearn.preprocessing import MinMaxScaler
-# scaler = MinMaxScaler()
-# prices = df_filtered['Preco do Petroleo'].values.reshape(-1, 1)
-# prices_normalized = scaler.fit_transform(prices)
-# sequence_length = 10
-# 
-# # Suponha que 'model' seja seu modelo treinado; aqui usamos None como placeholder
-# model = None
-# 
-# # --- Código do Streamlit ---
-# st.title("Previsão do Preço do Petróleo com LSTM")
-# st.markdown("""
-# Esta aplicação realiza a previsão do preço do petróleo para os próximos 15 dias.
-# Selecione uma data para visualizar a previsão.
-# """)
-# 
-# st.subheader("Prever o Preço para uma Data Específica")
-# ultima_data = df_filtered['Data'].iloc[-1]
-# data_inicial_prev = (ultima_data + datetime.timedelta(days=1)).date()
-# data_final_prev = (ultima_data + datetime.timedelta(days=15)).date()
-# 
-# data_selecionada = st.date_input(
-#     "Escolha a data de previsão:",
-#     value=data_inicial_prev,
-#     min_value=data_inicial_prev,
-#     max_value=data_final_prev
-# )
-# 
-# if st.button("Prever"):
-#     num_prediction = 15
-#     forecast = predict_future(model, prices_normalized, num_prediction, sequence_length, scaler)
-#     forecast_dates = predict_dates(ultima_data, num_prediction)
-# 
-#     df_forecast = pd.DataFrame({
-#         "Data": forecast_dates,
-#         "Preco do Petroleo": forecast.flatten()
-#     })
-# 
-#     df_selecionado = df_forecast[df_forecast["Data"].dt.date == data_selecionada]
-# 
-#     if not df_selecionado.empty:
-#         st.write("### Previsão para a data selecionada:")
-#         st.dataframe(df_selecionado)
-#     else:
-#         st.write("A data selecionada não possui previsão específica. Confira a previsão para os próximos 15 dias:")
-#         st.dataframe(df_forecast)
-# 
-#     st.write("### Gráfico de Previsão dos Próximos 15 Dias")
-#     fig, ax = plt.subplots(figsize=(10, 5))
-#     ax.plot(df_forecast["Data"], df_forecast["Preco do Petroleo"], marker="o", linestyle="--", color="red")
-#     ax.set_xlabel("Data")
-#     ax.set_ylabel("Preço (US$)")
-#     ax.set_title("Previsão do Preço do Petróleo")
-#     ax.grid(True)
-#     plt.xticks(rotation=45)
-#     st.pyplot(fig)
-# 
-# st.markdown("---")
-# st.write("#### Deploy do Modelo")
-# st.write("""
-# - **Interface Interativa:** Desenvolvida com Streamlit.
-# - **Entrada de Dados:** Selecione a data para a previsão.
-# - **Exibição dos Resultados:** Gráfico e tabela com a previsão dos próximos 15 dias.
-# - **Hospedagem:** Pode ser hospedado em serviços como Heroku, AWS ou Google Cloud.
-# """)
+%%writefile app.py
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import datetime
+
+def predict_future(model, data, num_prediction, sequence_length, scaler):
+    prediction_list = [float(item) for item in data[-sequence_length:]]
+    for _ in range(num_prediction):
+        x = np.array(prediction_list[-sequence_length:], dtype=float).reshape((1, sequence_length, 1))
+        out = model.predict(x)[0][0]
+        prediction_list.append(out)
+    prediction_list = prediction_list[sequence_length:]
+    prediction_list = scaler.inverse_transform(np.array(prediction_list).reshape(-1, 1))
+    return prediction_list
+
+def predict_dates(last_date, num_prediction):
+    return pd.date_range(start=last_date + datetime.timedelta(days=1), periods=num_prediction).tolist()
+
+# Carregar dados de exemplo (substitua pelo seu carregamento real)
+df_filtered = pd.DataFrame({
+    'Data': pd.date_range(start='2025-01-01', periods=50, freq='D'),
+    'Preco do Petroleo': np.random.uniform(50, 100, 50)
+})
+df_filtered['Data'] = pd.to_datetime(df_filtered['Data'])
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+prices = df_filtered['Preco do Petroleo'].values.reshape(-1, 1)
+prices_normalized = scaler.fit_transform(prices)
+sequence_length = 10
+
+# Suponha que 'model' seja seu modelo treinado; aqui usamos None como placeholder
+model = None
+
+# --- Código do Streamlit ---
+st.title("Previsão do Preço do Petróleo com LSTM")
+st.markdown("""
+Esta aplicação realiza a previsão do preço do petróleo para os próximos 15 dias.
+Selecione uma data para visualizar a previsão.
+""")
+
+st.subheader("Prever o Preço para uma Data Específica")
+ultima_data = df_filtered['Data'].iloc[-1]
+data_inicial_prev = (ultima_data + datetime.timedelta(days=1)).date()
+data_final_prev = (ultima_data + datetime.timedelta(days=15)).date()
+
+data_selecionada = st.date_input(
+    "Escolha a data de previsão:",
+    value=data_inicial_prev,
+    min_value=data_inicial_prev,
+    max_value=data_final_prev
+)
+
+if st.button("Prever"):
+    num_prediction = 15
+    forecast = predict_future(model, prices_normalized, num_prediction, sequence_length, scaler)
+    forecast_dates = predict_dates(ultima_data, num_prediction)
+
+    df_forecast = pd.DataFrame({
+        "Data": forecast_dates,
+        "Preco do Petroleo": forecast.flatten()
+    })
+
+    df_selecionado = df_forecast[df_forecast["Data"].dt.date == data_selecionada]
+
+    if not df_selecionado.empty:
+        st.write("### Previsão para a data selecionada:")
+        st.dataframe(df_selecionado)
+    else:
+        st.write("A data selecionada não possui previsão específica. Confira a previsão para os próximos 15 dias:")
+        st.dataframe(df_forecast)
+
+    st.write("### Gráfico de Previsão dos Próximos 15 Dias")
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(df_forecast["Data"], df_forecast["Preco do Petroleo"], marker="o", linestyle="--", color="red")
+    ax.set_xlabel("Data")
+    ax.set_ylabel("Preço (US$)")
+    ax.set_title("Previsão do Preço do Petróleo")
+    ax.grid(True)
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
+
+st.markdown("---")
+st.write("#### Deploy do Modelo")
+st.write("""
+- **Interface Interativa:** Desenvolvida com Streamlit.
+- **Entrada de Dados:** Selecione a data para a previsão.
+- **Exibição dos Resultados:** Gráfico e tabela com a previsão dos próximos 15 dias.
+- **Hospedagem:** Pode ser hospedado em serviços como Heroku, AWS ou Google Cloud.
+""")
