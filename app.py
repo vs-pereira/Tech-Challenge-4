@@ -102,16 +102,38 @@ abas = ["Contexto", "Dashboard", "Metodologia", "Resultados", "Simulação"]
 aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 
 if aba_selecionada == "Contexto":
-    st.header("Contexto")
+    st.header("Explorando as Profundezas das Oscilações no Mercado do Petróleo")
     st.write("""
-    **Problema do Tech Challenge:**
-    - Você foi contratado(a) para uma consultoria que analisa os dados históricos do preço do petróleo.
-    - A base de dados possui duas colunas: data e preço (em dólares).
-    - O desafio consiste em desenvolver um dashboard interativo que gere insights para a tomada de decisão e um modelo de Machine Learning para previsão dos preços.
-    
-    **Contextualização:**
-    - Os preços do petróleo são influenciados por fatores geopolíticos, crises econômicas e a demanda global por energia.
+    O mercado global de petróleo é uma arena dinâmica e multifacetada, onde cada variação no preço do barril reflete um intricado jogo de forças econômicas, políticas e tecnológicas. As flutuações observadas não são números isolados, mas o resultado de interações complexas entre eventos geopolíticos, crises financeiras, transformações na demanda energética e inovações disruptivas na cadeia produtiva do petróleo.
     """)
+    
+    # Exibe imagem ilustrativa sobre o mercado de petróleo
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_petroleo.jpg", 
+             caption="Oscilações no Mercado do Petróleo", width=500)
+    
+    st.write("""
+    Este dashboard interativo oferece uma análise aprofundada desses fenômenos, explorando desde a influência dos conflitos internacionais e mudanças nas políticas energéticas até o impacto de avanços tecnológicos que redefinem tanto a extração quanto a utilização dessa commodity estratégica. A combinação de dados históricos e modelos avançados de machine learning possibilita identificar padrões e prever tendências de curto prazo com alta confiabilidade, convertendo dados complexos em insights claros e acionáveis para investidores, gestores e formuladores de políticas.
+    """)
+    
+    st.write("""
+    Para uma compreensão integrada do mercado, utilizamos ferramentas poderosas para a visualização e análise dos dados. A estrutura do MVP foi construída com uma abordagem que alia storytelling e análise quantitativa, possibilitando uma tomada de decisão mais informada e estratégica em um cenário global em constante transformação.
+    """)
+    
+    # Exibe imagem ilustrativa da indústria do petróleo
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_industria.jpg", 
+             caption="Indústria do Petróleo", width=500)
+    
+    st.write("Utilizamos também as seguintes ferramentas para compor nosso dashboard interativo:")
+    
+    # Exibe imagens das ferramentas utilizadas
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_lookerstudio.jpg", 
+                 caption="Looker Studio", width=200)
+    with col2:
+        st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_streamlit.jpg", 
+                 caption="Streamlit", width=200)
+    
     st.write("Para mais detalhes, consulte o notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).")
 
 elif aba_selecionada == "Dashboard":
