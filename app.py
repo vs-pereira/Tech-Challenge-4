@@ -6,6 +6,17 @@ import datetime
 import requests
 from PIL import Image
 from io import BytesIO
+from tensorflow.keras.models import load_model
+
+# Carrega o modelo LSTM salvo (certifique-se de que o arquivo "meu_modelo.h5" esteja no diretório ou em um caminho acessível)
+try:
+    model = load_model("meu_modelo.h5")
+except Exception as e:
+    st.error("Erro ao carregar o modelo LSTM. Verifique se o arquivo 'meu_modelo.h5' está disponível.")
+    st.stop()
+
+# Defina o tamanho da sequência conforme utilizado no treinamento do seu modelo
+SEQUENCE_LENGTH = 60
 
 # Título principal e informações do repositório
 st.title("Tech Challenge 4 - Previsão do Preço do Petróleo")
@@ -15,14 +26,20 @@ st.markdown("**Usuário:** vs-pereira | **Repositório:** [Tech-Challenge-4](htt
 abas = ["Contexto", "Dashboard", "Metodologia", "Resultados", "Simulação"]
 aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 
-# Função dummy para simulação da previsão
+# Função para previsão utilizando o modelo LSTM carregado
 def predict_future_price(selected_date):
     """
-    Esta função simula a previsão do preço do petróleo.
-    Na implementação real, ela chamaria seu modelo LSTM.
-    Aqui, retornamos um valor aleatório entre 50 e 100 para exemplificar.
+    Simula a previsão do preço do petróleo.
+    Aqui, para exemplificação, geramos uma sequência dummy aleatória.
+    Em um cenário real, essa função deve:
+      - Obter os dados históricos relevantes até 'selected_date'
+      - Realizar o pré-processamento (normalização, criação de sequências, etc.)
+      - Gerar a sequência de entrada de forma consistente com o treinamento
     """
-    return np.round(np.random.uniform(50, 100), 2)
+    # Cria uma sequência dummy com valores aleatórios para simulação
+    dummy_sequence = np.random.rand(1, SEQUENCE_LENGTH, 1)
+    pred = model.predict(dummy_sequence)
+    return np.round(pred[0, 0], 2)
 
 # Aba 1: Contexto
 if aba_selecionada == "Contexto":
@@ -98,7 +115,6 @@ elif aba_selecionada == "Simulação":
         st.write(f"A previsão do preço do petróleo para **{data_simulacao}** é de **US$ {previsao}**.")
         
         # Exemplo de gráfico para visualização (simulação)
-        # Aqui você pode incluir um gráfico que represente a simulação, se desejar
         datas = pd.date_range(start=data_simulacao, periods=5, freq='D')
         valores = np.random.uniform(50, 100, size=5)
         fig, ax = plt.subplots(figsize=(10, 5))
