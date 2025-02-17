@@ -156,6 +156,35 @@ elif aba_selecionada == "Resultados":
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
 
+def predict_future_for_date(selected_date, num_prediction):
+    """
+    Gera previsões para os próximos 'num_prediction' dias a partir dos dados históricos 
+    até a data 'selected_date'.
+    """
+    # Converte a data recebida para datetime (caso não seja)
+    selected_date = pd.to_datetime(selected_date)
+    
+    # Filtra os dados históricos até 'selected_date'
+    df_filtered_date = df[df['Data'] <= selected_date].copy()
+    if len(df_filtered_date) < SEQUENCE_LENGTH:
+        st.error("Não há dados históricos suficientes até a data selecionada.")
+        st.stop()
+    
+    # Obtém os últimos 'SEQUENCE_LENGTH' preços dos dados filtrados
+    last_prices = df_filtered_date['Preco do Petroleo'].values[-SEQUENCE_LENGTH:]
+    last_prices_normalized = scaler.transform(last_prices.reshape(-1, 1))
+    
+    # Cria a lista de previsão iniciando a partir da sequência obtida
+    prediction_list = list(last_prices_normalized.flatten())
+    for _ in range(num_prediction):
+        x_input = np.array(prediction_list[-SEQUENCE_LENGTH:]).reshape(1, SEQUENCE_LENGTH, 1)
+        out = model.predict(x_input)[0][0]
+        prediction_list.append(out)
+    
+    # Seleciona apenas os valores previstos e desnormaliza-os
+    forecast = scaler.inverse_transform(np.array(prediction_list[SEQUENCE_LENGTH:]).reshape(-1, 1))
+    return forecast
+
 elif aba_selecionada == "Simulação":
     st.header("Simulação - Previsão do Preço do Petróleo")
     st.write("""
