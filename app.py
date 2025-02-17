@@ -9,25 +9,7 @@ from PIL import Image
 from io import BytesIO
 from tensorflow.keras.models import load_model
 
-# Exibe o diretório atual e os arquivos disponíveis
-st.write("Diretório atual:", os.getcwd())
-st.write("Arquivos na raiz:", os.listdir("."))
-
-# Defina o caminho do arquivo
-# Se o arquivo estiver em uma subpasta "main", use:
-local_model_path = os.path.join("main", "meu_modelo.h5")
-# Se estiver na raiz, use:
-# local_model_path = "meu_modelo.h5"
-
-# Verifica se o arquivo existe
-if os.path.exists(local_model_path):
-    try:
-        model = load_model(local_model_path)
-        st.success("Modelo LSTM carregado com sucesso!")
-    except Exception as e:
-        st.error(f"Erro ao carregar o modelo: {e}")
-else:
-    st.error("Arquivo 'meu_modelo.h5' não foi encontrado. Verifique se o caminho está correto.")
+local_model_path = "meu_modelo.h5"
 
 # Sequência conforme utilizado no treinamento do seu modelo
 SEQUENCE_LENGTH = 60
