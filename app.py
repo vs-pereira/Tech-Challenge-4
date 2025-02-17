@@ -2,31 +2,98 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 import datetime
 import requests
 from PIL import Image
 from io import BytesIO
 from tensorflow.keras.models import load_model
-import joblib
+from sklearn.preprocessing import MinMaxScaler
+import math
 
-# Carrega o modelo LSTM salvo
+# ====================================================================
+# 1. Carregamento e Pré‑processamento da Base Histórica
+# ====================================================================
+
+# Tenta carregar o arquivo CSV com os dados históricos
 try:
-    model = load_model("meu_modelo.h5")
+    df = pd.read_csv("base_preco_petroleo.csv")
 except Exception as e:
-    st.error("Erro ao carregar o modelo LSTM. Verifique se o arquivo 'meu_modelo.h5' está disponível.\nDetalhes: " + str(e))
+    st.error("Erro ao carregar a base histórica. Verifique se o arquivo 'base_preco_petroleo.csv' está disponível.")
     st.stop()
 
-# Carrega o scaler salvo (utilizado para normalizar os dados no treinamento)
+# Converte a coluna 'Data' para datetime (considerando o formato dia/mês/ano)
+df['Data'] = pd.to_datetime(df['Data'], dayfirst=True)
+# Ordena os dados pela data e reseta o índice
+df.sort_values('Data', inplace=True)
+df.reset_index(drop=True, inplace=True)
+
+# Converte os preços: remove espaços, substitui vírgula por ponto e converte para float
+df['Preco do Petroleo'] = (
+    df['Preco do Petroleo']
+    .astype(str)
+    .str.strip()
+    .str.replace(',', '.')
+    .astype(float)
+)
+
+# ====================================================================
+# 2. Carregamento do Modelo e Preparação para Previsão
+# ====================================================================
+
+# Tamanho da sequência usado no treinamento (conforme seu notebook: 10)
+SEQUENCE_LENGTH = 10
+
+# Tenta carregar o modelo salvo
 try:
-    scaler = joblib.load("scaler.save")
+    model = load_model("meu_modelo.h5", compile=False)
 except Exception as e:
-    st.error("Erro ao carregar o scaler. Verifique se o arquivo 'scaler.save' está disponível.\nDetalhes: " + str(e))
+    st.error(f"Erro ao carregar o modelo LSTM. Verifique se o arquivo 'meu_modelo.h5' está disponível.\nDetalhes: {e}")
     st.stop()
 
-# Define o tamanho da sequência conforme utilizado no treinamento do modelo (no seu notebook é 60)
-SEQUENCE_LENGTH = 60
+# Normaliza os preços utilizando o MinMaxScaler (mesmo procedimento usado no treinamento)
+scaler = MinMaxScaler()
+prices = df['Preco do Petroleo'].values.reshape(-1, 1)
+prices_normalized = scaler.fit_transform(prices)
 
-# Título principal e informações do repositório
+# Função que, a partir dos últimos dados normalizados, gera uma previsão para N passos à frente
+def predict_future(model, data, num_prediction, sequence_length, scaler):
+    # Inicia com os últimos "sequence_length" pontos (convertendo-os para float)
+    prediction_list = [float(item) for item in data[-sequence_length:]]
+    for _ in range(num_prediction):
+        x = np.array(prediction_list[-sequence_length:], dtype=float).reshape((1, sequence_length, 1))
+        out = model.predict(x)[0][0]
+        prediction_list.append(out)
+    # Seleciona apenas os valores previstos (excluindo os dados de entrada)
+    prediction_array = np.array(prediction_list[sequence_length:]).reshape(-1, 1)
+    # Desnormaliza as previsões
+    prediction_array = scaler.inverse_transform(prediction_array)
+    return prediction_array
+
+# Função para prever o preço para uma data selecionada pelo usuário
+def predict_price_for_date(selected_date):
+    """
+    Se a data selecionada for anterior (ou igual) à última data histórica,
+    retorna o preço histórico (ou o mais próximo). Caso contrário,
+    calcula quantos dias faltam e gera a previsão para o último dia.
+    """
+    selected_date = pd.to_datetime(selected_date)
+    last_date = df['Data'].iloc[-1]
+    if selected_date <= last_date:
+        # Retorna o preço histórico (para datas existentes, pode-se aprimorar a busca)
+        price_val = df[df['Data'] <= selected_date]['Preco do Petroleo'].iloc[-1]
+        return np.round(price_val, 2)
+    else:
+        # Número de dias a prever (diferença entre a data selecionada e a última data histórica)
+        delta_days = (selected_date - last_date).days
+        forecast = predict_future(model, prices_normalized, delta_days, SEQUENCE_LENGTH, scaler)
+        predicted_value = forecast[-1, 0]
+        return np.round(predicted_value, 2)
+
+# ====================================================================
+# 3. Estrutura do App Streamlit (Abas)
+# ====================================================================
+
 st.title("Tech Challenge 4 - Previsão do Preço do Petróleo")
 st.markdown("**Usuário:** vs-pereira | **Repositório:** [Tech-Challenge-4](https://github.com/vs-pereira/Tech-Challenge-4)")
 
@@ -34,37 +101,6 @@ st.markdown("**Usuário:** vs-pereira | **Repositório:** [Tech-Challenge-4](htt
 abas = ["Contexto", "Dashboard", "Metodologia", "Resultados", "Simulação"]
 aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 
-# Função para previsão utilizando o modelo LSTM carregado
-def predict_future_price(selected_date):
-    """
-    Realiza a previsão do preço do petróleo utilizando o modelo LSTM treinado.
-    
-    Para este exemplo, criamos uma sequência dummy com dados históricos fictícios (valores entre 60 e 80)
-    e aplicamos o mesmo escalonamento utilizado no treinamento.
-    
-    Em uma implementação real, você deve:
-      - Carregar os dados históricos reais até a data selecionada
-      - Realizar o pré-processamento (normalização, criação de sequências, etc.)
-      - Gerar a sequência de entrada conforme o treinamento.
-    """
-    # Gera uma sequência dummy com valores entre 60 e 80 (exemplo: preços históricos fictícios)
-    dummy_history = np.linspace(60, 80, SEQUENCE_LENGTH)
-    
-    # Normaliza os dados usando o scaler carregado
-    dummy_history_scaled = scaler.transform(dummy_history.reshape(-1, 1))
-    
-    # Prepara o input com a forma (batch_size, sequence_length, features)
-    input_sequence = np.array(dummy_history_scaled).reshape(1, SEQUENCE_LENGTH, 1)
-    
-    # Realiza a previsão (a saída estará na escala normalizada)
-    pred_scaled = model.predict(input_sequence)
-    
-    # Converte a previsão para a escala original
-    pred = scaler.inverse_transform(pred_scaled)
-    
-    return np.round(pred[0, 0], 2)
-
-# Aba 1: Contexto
 if aba_selecionada == "Contexto":
     st.header("Contexto")
     st.write("""
@@ -79,7 +115,6 @@ if aba_selecionada == "Contexto":
     """)
     st.write("Para mais detalhes, consulte o notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).")
 
-# Aba 2: Dashboard
 elif aba_selecionada == "Dashboard":
     st.header("Dashboard")
     st.write("""
@@ -94,7 +129,6 @@ elif aba_selecionada == "Dashboard":
     5. Insight 5: _[Descrição do insight 5]_.
     """)
 
-# Aba 3: Metodologia do Modelo Desenvolvido
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
     st.write("""
@@ -102,10 +136,9 @@ elif aba_selecionada == "Metodologia":
     - Utilizei uma rede neural LSTM (Long Short-Term Memory) para capturar as dependências temporais na série histórica do preço do petróleo.
     - Os dados foram previamente normalizados e transformados em sequências para treinamento.
     - O modelo foi treinado utilizando 80% dos dados para treinamento e 20% para teste, garantindo sua robustez.
-    - Todo o processo foi realizado no Google Colab e o código completo encontra-se no notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).
+    - Todo o processo foi realizado no Google Colab; o código completo encontra-se no notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).
     """)
 
-# Aba 4: Resultados
 elif aba_selecionada == "Resultados":
     st.header("Resultados")
     st.write("""
@@ -123,7 +156,6 @@ elif aba_selecionada == "Resultados":
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
 
-# Aba 5: Simulação
 elif aba_selecionada == "Simulação":
     st.header("Simulação - Previsão do Preço do Petróleo")
     st.write("""
@@ -134,29 +166,39 @@ elif aba_selecionada == "Simulação":
     # Interface para simulação
     data_simulacao = st.date_input("Selecione a data para previsão", value=datetime.date.today())
     if st.button("Prever"):
-        previsao = predict_future_price(data_simulacao)
-        # Formata a data para o padrão DD/MM/YYYY
-        data_formatada = data_simulacao.strftime("%d/%m/%Y")
-        st.write(f"A previsão do preço do petróleo para **{data_formatada}** é de **US$ {previsao}**.")
+        # Obtém a previsão para a data selecionada (se for após o último dado histórico, gera previsão)
+        predicted_price = predict_price_for_date(data_simulacao)
+        # Formata a data para dd/mm/aaaa
+        formatted_date = pd.to_datetime(data_simulacao).strftime("%d/%m/%Y")
+        st.write(f"A previsão do preço do petróleo para **{formatted_date}** é de **US$ {predicted_price}**.")
         
-        # Exemplo de gráfico para visualização (simulação)
-        # Geramos 5 datas a partir da data selecionada e valores em torno da previsão
-        datas = pd.date_range(start=data_simulacao, periods=5, freq='D')
-        valores = previsao + np.random.uniform(-5, 5, size=5)
+        # Exemplo de gráfico para visualização:
+        # Aqui, para exemplificar, vamos gerar uma previsão para os próximos 5 dias a partir do último dia histórico
+        num_days_forecast = 5
+        forecast_array = predict_future(model, prices_normalized, num_days_forecast, SEQUENCE_LENGTH, scaler)
+        forecast_values = forecast_array.flatten()
+        forecast_dates = pd.date_range(start=df['Data'].iloc[-1] + datetime.timedelta(days=1), periods=num_days_forecast)
+        
         fig, ax = plt.subplots(figsize=(10, 5))
-        ax.plot(datas, valores, marker='o', linestyle='--', color='green')
+        ax.plot(forecast_dates, forecast_values, marker='o', linestyle='--', color='green', label='Previsão')
         ax.set_xlabel("Data")
         ax.set_ylabel("Preço (US$)")
         ax.set_title("Simulação de Previsão do Preço do Petróleo")
+        # Formata as datas no eixo x para dd/mm/aaaa
+        ax.xaxis.set_major_formatter(FuncFormatter(lambda x, pos: pd.to_datetime(x).strftime("%d/%m/%Y")))
         plt.xticks(rotation=45)
+        plt.legend()
         st.pyplot(fig)
 
-# Rodapé opcional com imagem ou logo
+# ====================================================================
+# 4. Rodapé e Imagem
+# ====================================================================
+
 try:
     image_url = "https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/foto%20capa.jpg"
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
-    st.image(image, width=85, output_format="PNG", use_column_width=True)
+    st.image(image, width=85, use_column_width=True)
 except Exception as e:
     st.write("Imagem não disponível.")
 
