@@ -216,4 +216,4 @@ try:
 except Exception as e:
     st.write("Imagem não disponível.")
 
-st.markdown('<p class="footer">Tech Challenge 4 - vs-pereira</p>', unsafe_allow_html=True)
+st.markdown('<p class="footer">Tech Challenge 4 - Vitor Squecola Pereira (vitor.squecola@gmail.com e Daniel Udala (daniel.udala@outlook.com)</p>', unsafe_allow_html=True)
