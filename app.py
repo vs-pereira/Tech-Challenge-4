@@ -239,7 +239,6 @@ print(df_zoom[['Data', 'Preco do Petroleo', 'Tipo']].to_string(index=False))
 # MVP do deploy
 
 # Commented out IPython magic to ensure Python compatibility.
-%%writefile app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
