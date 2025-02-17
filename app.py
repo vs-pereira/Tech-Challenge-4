@@ -9,14 +9,12 @@ from io import BytesIO
 import os
 from tensorflow.keras.models import load_model
 
-# Define o caminho para o arquivo do modelo. 
-# Se o arquivo estiver na pasta raiz do repositório, utilize "meu_modelo.h5".
 MODEL_PATH = "meu_modelo.h5"
 
-# Tenta carregar o modelo LSTM salvo.
 if os.path.exists(MODEL_PATH):
     try:
-        model = load_model(MODEL_PATH)
+        # Carrega o modelo sem compilá-lo
+        model = load_model(MODEL_PATH, compile=False)
         st.success("Modelo LSTM carregado com sucesso!")
     except Exception as e:
         st.error(f"Erro ao carregar o modelo LSTM. Verifique se o arquivo '{MODEL_PATH}' está disponível.\nDetalhes: {e}")
