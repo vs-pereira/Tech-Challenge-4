@@ -145,11 +145,11 @@ elif aba_selecionada == "Resultados":
     - O modelo LSTM apresentou alta precisão com R² elevado e baixas métricas de erro.
     
     **Métricas:**
-    - *R² Score:* 0.9138
-    - *MSE:* 2.6362
-    - *MAE:* 1.2833
-    - *MAPE:* 1.6196%
-    - *RMSE:* 1.6236
+    - *R² Score:* 0.8693
+    - *MSE:* 3.9970
+    - *MAE:* 1.6485
+    - *MAPE:* 2.0504%
+    - *RMSE:* 1.9993
     
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
