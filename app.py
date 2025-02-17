@@ -4,18 +4,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 import requests
+import os
 from PIL import Image
 from io import BytesIO
 from tensorflow.keras.models import load_model
 
-# Carrega o modelo LSTM salvo (certifique-se de que o arquivo "meu_modelo.h5" esteja no diretório ou em um caminho acessível)
-try:
-    model = load_model("meu_modelo.h5")
-except Exception as e:
-    st.error("Erro ao carregar o modelo LSTM. Verifique se o arquivo 'meu_modelo.h5' está disponível.")
-    st.stop()
+local_model_path = os.path.join("main", "meu_modelo.h5")
 
-# Defina o tamanho da sequência conforme utilizado no treinamento do seu modelo
+if os.path.exists(local_model_path):
+    try:
+        model = load_model(local_model_path)
+        st.success("Modelo LSTM carregado com sucesso!")
+    except Exception as e:
+        st.error(f"Erro ao carregar o modelo: {e}")
+else:
+    st.error("Arquivo 'meu_modelo.h5' não foi encontrado. Verifique se o caminho está correto.")
+
+# Sequência conforme utilizado no treinamento do seu modelo
 SEQUENCE_LENGTH = 60
 
 # Título principal e informações do repositório
