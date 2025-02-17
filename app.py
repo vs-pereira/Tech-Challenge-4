@@ -9,8 +9,17 @@ from PIL import Image
 from io import BytesIO
 from tensorflow.keras.models import load_model
 
-local_model_path = os.path.join("main", "meu_modelo.h5")
+# Exibe o diretório atual e os arquivos disponíveis
+st.write("Diretório atual:", os.getcwd())
+st.write("Arquivos na raiz:", os.listdir("."))
 
+# Defina o caminho do arquivo
+# Se o arquivo estiver em uma subpasta "main", use:
+local_model_path = os.path.join("main", "meu_modelo.h5")
+# Se estiver na raiz, use:
+# local_model_path = "meu_modelo.h5"
+
+# Verifica se o arquivo existe
 if os.path.exists(local_model_path):
     try:
         model = load_model(local_model_path)
