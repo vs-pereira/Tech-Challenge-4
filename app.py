@@ -159,44 +159,57 @@ elif aba_selecionada == "Resultados":
 elif aba_selecionada == "Simulação":
     st.header("Simulação - Previsão do Preço do Petróleo")
     st.write("""
-    **Simulação:**
-    Insira uma data para obter a previsão do preço do petróleo com base no modelo LSTM.
+    Insira a data desejada para a previsão do preço do barril de petróleo.
+    O intervalo permitido é dos 15 dias seguintes a 10/02/2025 (ou seja, de 11/02/2025 a 25/02/2025).
     """)
     
-    # Interface para simulação: o usuário escolhe a data
-    data_simulacao = st.date_input("Selecione a data para previsão", value=datetime.date.today())
+    # Define o intervalo permitido para a previsão
+    min_date = datetime.date(2025, 2, 11)
+    max_date = datetime.date(2025, 2, 25)
+    data_simulacao = st.date_input("Selecione a data para previsão", 
+                                   value=min_date, 
+                                   min_value=min_date, 
+                                   max_value=max_date)
     
     if st.button("Prever"):
-        # Obtém a previsão para a data selecionada.
-        # A função 'predict_price_for_date' deve ser implementada para retornar a previsão para a data inserida.
-        predicted_price = predict_price_for_date(data_simulacao)
+        # Última data histórica (assumindo que df['Data'] esteja ordenado)
+        last_hist_date = pd.to_datetime(df['Data'].iloc[-1])  # ex.: 10/02/2025
+        selected_date_dt = pd.to_datetime(data_simulacao)
+        num_days_forecast = (selected_date_dt - last_hist_date).days
+        if num_days_forecast <= 0:
+            st.error("Selecione uma data após o último ponto do histórico (10/02/2025).")
+            st.stop()
         
-        # Formata a data para o formato dd/mm/aaaa
-        formatted_date = pd.to_datetime(data_simulacao).strftime("%d/%m/%Y")
-        st.write(f"A previsão do preço do petróleo para **{formatted_date}** é de **US$ {predicted_price}**.")
+        # Gera a previsão para os dias a partir de last_hist_date + 1 até a data selecionada.
+        # A função predict_future_for_date utiliza os dados históricos até last_hist_date.
+        forecast_array = predict_future_for_date(last_hist_date, num_days_forecast)
+        # A previsão para o dia selecionado é o último elemento do array forecast_array.
+        predicted_price = forecast_array[-1, 0]
         
-        # Exemplo de gráfico para visualização:
-        # Neste exemplo, queremos mostrar 2 dias antes e 2 dias depois da data selecionada (total de 5 dias)
-        num_days_forecast = 5
-        forecast_array = predict_future(model, prices_normalized, num_days_forecast, SEQUENCE_LENGTH, scaler)
-        forecast_values = forecast_array.flatten()
+        # Formata a data para dd/mm/aaaa
+        formatted_date = selected_date_dt.strftime("%d/%m/%Y")
+        st.write(f"A previsão do preço do petróleo para **{formatted_date}** é de **US$ {predicted_price:.2f}**.")
         
-        # Define as datas a partir da data selecionada (2 dias antes até 2 dias depois)
-        forecast_dates = pd.date_range(start=pd.to_datetime(data_simulacao) - datetime.timedelta(days=2),
+        # Prepara o gráfico
+        # Histórico: dados desde 01/06/2020 até a data selecionada
+        start_hist_plot = pd.to_datetime("2020-06-01")
+        df_plot = df[(df['Data'] >= start_hist_plot) & (df['Data'] <= selected_date_dt)].copy()
+        
+        # Datas da previsão: de last_hist_date + 1 até selected_date
+        forecast_dates = pd.date_range(start=last_hist_date + datetime.timedelta(days=1),
                                        periods=num_days_forecast)
         
+        # Cria o gráfico
         fig, ax = plt.subplots(figsize=(10, 5))
-        ax.plot(forecast_dates, forecast_values, marker='o', linestyle='--', color='green', label='Previsão')
+        ax.plot(df_plot['Data'], df_plot['Preco do Petroleo'], marker='o', label="Histórico", color="blue")
+        ax.plot(forecast_dates, forecast_array, marker='x', linestyle='--', label="Previsão", color="green")
         ax.set_xlabel("Data")
         ax.set_ylabel("Preço (US$)")
-        ax.set_title("Simulação de Previsão do Preço do Petróleo")
+        ax.set_title("Previsão do Preço do Petróleo")
         
-        # Formata as datas no eixo x para dd/mm/aaaa
+        # Formata o eixo x para mostrar datas no formato dd/mm/aaaa
         from matplotlib.dates import DateFormatter
         ax.xaxis.set_major_formatter(DateFormatter("%d/%m/%Y"))
-        plt.xticks(rotation=45)
-        plt.legend()
-        st.pyplot(fig)
 
 # ====================================================================
 # 4. Rodapé e Imagem
