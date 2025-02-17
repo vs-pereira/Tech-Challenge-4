@@ -108,7 +108,7 @@ if aba_selecionada == "Contexto":
     """)
     
     # Exibe imagem ilustrativa sobre o mercado de petróleo
-    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_petroleo.jpg", 
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_industria.jpg", 
              caption="Oscilações no Mercado do Petróleo", width=500)
     
     st.write("""
@@ -120,7 +120,7 @@ if aba_selecionada == "Contexto":
     """)
     
     # Exibe imagem ilustrativa da indústria do petróleo
-    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_industria.jpg", 
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_petroleo.jpg", 
              caption="Indústria do Petróleo", width=500)
     
     st.write("Utilizamos também as seguintes ferramentas para compor nosso dashboard e plataforma interativos:")
