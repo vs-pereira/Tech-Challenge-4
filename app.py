@@ -186,7 +186,7 @@ elif aba_selecionada == "Simulação":
         
         # Prepara o gráfico:
         # Histórico desde 01/06/2020 até a data selecionada
-        start_hist_plot = pd.to_datetime("2020-06-01")
+        start_hist_plot = pd.to_datetime("2025-01-01")
         df_plot = df[(df['Data'] >= start_hist_plot) & (df['Data'] <= selected_date_dt)].copy()
         
         # Datas da previsão: de last_hist_date + 1 até selected_date
