@@ -4,14 +4,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 import requests
-import os
 from PIL import Image
 from io import BytesIO
+import os
 from tensorflow.keras.models import load_model
 
-local_model_path = "meu_modelo.h5"
+# Define o caminho para o arquivo do modelo. 
+# Se o arquivo estiver na pasta raiz do repositório, utilize "meu_modelo.h5".
+MODEL_PATH = "meu_modelo.h5"
 
-# Sequência conforme utilizado no treinamento do seu modelo
+# Tenta carregar o modelo LSTM salvo.
+if os.path.exists(MODEL_PATH):
+    try:
+        model = load_model(MODEL_PATH)
+        st.success("Modelo LSTM carregado com sucesso!")
+    except Exception as e:
+        st.error(f"Erro ao carregar o modelo LSTM. Verifique se o arquivo '{MODEL_PATH}' está disponível.\nDetalhes: {e}")
+        st.stop()
+else:
+    st.error(f"Arquivo '{MODEL_PATH}' não foi encontrado. Verifique se o caminho está correto.")
+    st.stop()
+
+# Defina o tamanho da sequência conforme utilizado no treinamento do seu modelo
 SEQUENCE_LENGTH = 60
 
 # Título principal e informações do repositório
@@ -26,11 +40,11 @@ aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 def predict_future_price(selected_date):
     """
     Simula a previsão do preço do petróleo.
-    Aqui, para exemplificação, geramos uma sequência dummy aleatória.
     Em um cenário real, essa função deve:
       - Obter os dados históricos relevantes até 'selected_date'
       - Realizar o pré-processamento (normalização, criação de sequências, etc.)
       - Gerar a sequência de entrada de forma consistente com o treinamento
+    Neste exemplo, geramos uma sequência dummy aleatória.
     """
     # Cria uma sequência dummy com valores aleatórios para simulação
     dummy_sequence = np.random.rand(1, SEQUENCE_LENGTH, 1)
@@ -104,11 +118,14 @@ elif aba_selecionada == "Simulação":
     Insira uma data para obter a previsão do preço do petróleo com base no modelo LSTM.
     """)
     
-    # Interface para simulação
+    # Interface para simulação: seleção de data
     data_simulacao = st.date_input("Selecione a data para previsão", value=datetime.date.today())
     if st.button("Prever"):
-        previsao = predict_future_price(data_simulacao)
-        st.write(f"A previsão do preço do petróleo para **{data_simulacao}** é de **US$ {previsao}**.")
+        try:
+            previsao = predict_future_price(data_simulacao)
+            st.write(f"A previsão do preço do petróleo para **{data_simulacao}** é de **US$ {previsao}**.")
+        except Exception as e:
+            st.error(f"Erro ao realizar a previsão: {e}")
         
         # Exemplo de gráfico para visualização (simulação)
         datas = pd.date_range(start=data_simulacao, periods=5, freq='D')
