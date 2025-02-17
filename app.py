@@ -123,7 +123,7 @@ if aba_selecionada == "Contexto":
     st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/imagem_industria.jpg", 
              caption="Indústria do Petróleo", width=500)
     
-    st.write("Utilizamos também as seguintes ferramentas para compor nosso dashboard interativo:")
+    st.write("Utilizamos também as seguintes ferramentas para compor nosso dashboard e plataforma interativos:")
     
     # Exibe imagens das ferramentas utilizadas
     col1, col2 = st.columns(2)
