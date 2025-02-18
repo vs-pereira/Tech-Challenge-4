@@ -139,7 +139,7 @@ if aba_selecionada == "Contexto":
 elif aba_selecionada == "Dashboard":
     st.header("Dashboard")
     
-    # Exibe a imagem do dashboard (certifique-se de que "dash.png" esteja no repositório)
+    # Exibe a imagem do dashboard
     st.image("dash.png", use_container_width=True)
     
     st.write("""
@@ -186,7 +186,7 @@ elif aba_selecionada == "Dashboard":
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
     
-    # Exibe uma imagem ilustrativa do Python, que deve estar no repositório
+    # Exibe uma imagem ilustrativa do Python
     st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/python_image.png", use_container_width=True)
     
     st.write("""
@@ -265,7 +265,7 @@ elif aba_selecionada == "Simulação":
                                    max_value=max_date)
     
     if st.button("Prever"):
-        # Última data histórica (assumindo que df['Data'] esteja ordenado)
+        # Última data histórica
         last_hist_date = pd.to_datetime(df['Data'].iloc[-1])
         selected_date_dt = pd.to_datetime(data_simulacao)
         num_days_forecast = (selected_date_dt - last_hist_date).days
