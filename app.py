@@ -232,14 +232,19 @@ elif aba_selecionada == "Resultados":
     st.header("Resultados")
     st.write("""
     **Resultados Alcançados:**
-    - O modelo LSTM apresentou alta precisão com R² elevado e baixas métricas de erro.
+
+    O modelo LSTM demonstrou robustez e uma notável capacidade preditiva ao analisar os dados históricos do preço do petróleo. 
+    A rede neural foi capaz de capturar as complexas dinâmicas do mercado, evidenciadas por um elevado ajuste aos dados e baixos índices de erro. 
+    Esses resultados fundamentam a utilização do modelo para a previsão de preços futuros, contribuindo para decisões estratégicas em cenários de volatilidade.
     
-    **Métricas:**
+    **Métricas de Desempenho:**
     - *R² Score:* 0.8693
     - *MSE:* 3.9970
     - *MAE:* 1.6485
     - *MAPE:* 2.0504%
     - *RMSE:* 1.9993
+    
+    Esses indicadores mostram que o modelo apresenta uma performance sólida e confiável para a previsão dos preços do petróleo.
     
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
