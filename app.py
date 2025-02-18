@@ -155,17 +155,17 @@ elif aba_selecionada == "Dashboard":
          - Políticas da OPEP que restringiram a oferta em meio a temores de interrupções no fornecimento.  
          - Demanda global robusta, especialmente de economias emergentes.  
        - **Fontes:**  
-         - [IEA World Energy Outlook 2013](https://www.iea.org/reports/world-energy-outlook-2013)  
-         - [OPEC Annual Statistical Bulletin](https://www.opec.org/opec_web/en/publications/202.htm)
+         - [OPEC Annual Statistical Bulletin](https://www.opec.org/opec_web/en/publications/202.htm)  
+         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
     
     2. **2008: Máxima Alta e Queda Abrupta**  
-       No ano de 2008, o mercado experimentou extremos – atingindo um pico de US$143,95 e, logo em seguida, uma queda para US$33,73.  
+       Em 2008, o mercado experimentou extremos – atingindo um pico de US$143,95 e, logo em seguida, uma queda para US$33,73.  
        - **Fatores:**  
-         - Um período de alta especulativa e demanda aquecida, que elevou os preços antes da crise.  
-         - A crise financeira global, iniciada em setembro, levou a uma queda drástica na demanda e ao excesso de oferta.  
+         - Período de alta especulativa e demanda aquecida, que elevou os preços antes da crise.  
+         - A crise financeira global, iniciada em setembro, provocou uma queda drástica na demanda e um excesso de oferta.  
        - **Fontes:**  
          - [U.S. Energy Information Administration – Petroleum & Other Liquids](https://www.eia.gov/petroleum/)  
-         - [IEA Oil Market Report 2008](https://www.iea.org/reports/oil-market-report-2008)
+         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
     
     3. **2022: Segunda Maior Alta**  
        Em 2022, os preços subiram para US$133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
@@ -175,28 +175,34 @@ elif aba_selecionada == "Dashboard":
          - Decisões da OPEP+ de manter cortes na produção para sustentar os preços.  
        - **Fontes:**  
          - [Reuters – Oil Prices Surge Amid Ukraine Crisis](https://www.reuters.com/business/energy/)  
-         - [IEA Oil Market Report 2022](https://www.iea.org/reports/oil-market-report-2022)
+         - [U.S. Energy Information Administration](https://www.eia.gov/petroleum/)
     
     4. **2020: Menor Preço da Série**  
-       O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de US$9,12, devido a uma combinação sem precedentes de fatores.  
+       O ano de 2020 ficou marcado pelo menor preço registrado, em torno de US$9,12, devido a fatores sem precedentes.  
        - **Fatores:**  
          - A pandemia de COVID-19 resultou em lockdowns globais e uma queda acentuada na demanda.  
          - Uma guerra de preços entre grandes produtores exacerbou o excesso de oferta.  
-         - Desafios logísticos e problemas de armazenamento contribuíram para a queda.  
+         - Problemas logísticos e desafios de armazenamento contribuíram para a queda.  
        - **Fontes:**  
-         - [U.S. EIA – Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)  
-         - [IEA Oil Market Report 2020](https://www.iea.org/reports/oil-market-report-2020)
+         - [U.S. Energy Information Administration – Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)  
+         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
     
     5. **2016: Segundo Menor Preço**  
        Em 2016, o preço do petróleo caiu para cerca de US$26,01, refletindo um período de reequilíbrio no mercado.  
        - **Fatores:**  
-         - O aumento da produção de shale oil nos EUA e a relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
+         - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção, levando a um excesso de oferta.  
          - Incertezas macroeconômicas globais afetaram a demanda por energia.  
          - O mercado ainda se recuperava da queda iniciada em 2014.  
        - **Fontes:**  
-         - [IEA Oil Market Report 2016](https://www.iea.org/reports/oil-market-report-2016)  
+         - [Reuters – Oil Price Analysis](https://www.reuters.com/business/energy/)  
          - [Bloomberg – Analysis on Oil Price Collapse 2016](https://www.bloomberg.com/energy)
+    
+    **Fontes Gerais:**  
+    - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)  
+    - [U.S. Energy Information Administration](https://www.eia.gov/petroleum/)  
+    - [OPEC Annual Statistical Bulletin](https://www.opec.org/opec_web/en/publications/202.htm)
     """)
+
 
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
