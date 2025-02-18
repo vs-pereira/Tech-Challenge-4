@@ -140,7 +140,7 @@ elif aba_selecionada == "Dashboard":
     st.header("Dashboard")
     
     # Exibe a imagem do dashboard (certifique-se de que "dash.png" esteja no repositório)
-    st.image("dash.png", use_column_width=True)
+    st.image("dash.png", use_container_width=True)
     
     st.write("""
     **Link do Dashboard:**  
