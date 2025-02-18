@@ -186,12 +186,35 @@ elif aba_selecionada == "Dashboard":
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
     st.write("""
-    **Abordagem via LSTM:**
-    - Rede neural LSTM para capturar dependências temporais.
-    - Dados normalizados e transformados em sequências.
-    - Treinamento com 80% dos dados para treino e 20% para teste.
-    - Processo realizado no Google Colab. Veja o notebook [Tech_Challenge_4_.ipynb](https://github.com/vs-pereira/Tech-Challenge-4/blob/main/Tech_Challenge_4_.ipynb).
+    ### Origem e Análise dos Dados
+
+    Os dados históricos do preço do petróleo foram obtidos de fontes públicas e confiáveis, que agregam informações de diversos mercados internacionais. Após a extração, os dados foram cuidadosamente processados e armazenados em um arquivo Microsoft Excel. Em seguida, utilizamos Python, com as bibliotecas **Pandas** e **NumPy**, para realizar uma análise exploratória detalhada. Essa etapa envolveu a limpeza dos dados, a correção de inconsistências, a identificação de outliers e a análise de tendências e sazonalidades que influenciam o comportamento do mercado.
+
+    Visualizações interativas foram construídas para examinar a evolução do preço do petróleo ao longo do tempo, permitindo a identificação de padrões e a compreensão das dinâmicas de oferta e demanda, bem como dos impactos de eventos geopolíticos e crises econômicas.
+
+    ### Aplicação do Modelo LSTM
+
+    Para a previsão dos preços futuros, implementamos uma rede neural do tipo **LSTM** (Long Short-Term Memory), reconhecida por sua capacidade de capturar dependências temporais e relacionamentos de longo prazo em séries temporais. Os dados foram previamente normalizados utilizando o **MinMaxScaler**, garantindo que a rede neural trabalhasse com uma escala consistente, o que é crucial para o desempenho do modelo.
+
+    O conjunto de dados foi dividido em 80% para treinamento e 20% para validação, permitindo uma avaliação robusta da performance do modelo. Foram calculadas diversas métricas de desempenho, incluindo:
+    
+    - **Coeficiente de Determinação (R²):** Mede a proporção da variância dos dados que é explicada pelo modelo. Valores próximos de 1 indicam um ajuste excelente.
+    - **Erro Médio Quadrático (MSE):** Indica a média dos quadrados dos erros de previsão, destacando a dispersão dos resíduos.
+    - **Erro Médio Absoluto (MAE):** Fornece a média dos erros absolutos, representando a magnitude média dos desvios.
+    - **Erro Percentual Absoluto Médio (MAPE):** Expressa a precisão das previsões em termos percentuais.
+    - **Raiz do Erro Médio Quadrático (RMSE):** É a raiz quadrada do MSE, interpretada nas mesmas unidades do preço.
+
+    Esses indicadores foram essenciais para validar a eficácia do modelo, garantindo que as previsões geradas fossem confiáveis para a tomada de decisões estratégicas.
+
+    ### Execução no Google Colab
+
+    Todo o processo de análise e treinamento do modelo foi conduzido no **Google Colab**, uma plataforma que oferece acesso gratuito a recursos computacionais robustos, incluindo GPUs. Essa infraestrutura permitiu a execução eficiente do código Python, facilitou a colaboração entre pesquisadores e possibilitou a manipulação de grandes conjuntos de dados com rapidez e precisão.
+
+    ### Integração e Aplicação
+
+    A integração da análise detalhada dos dados históricos com o modelo LSTM permitiu o desenvolvimento de um dashboard interativo que une storytelling e análises preditivas avançadas. Essa solução oferece insights valiosos sobre as oscilações do preço do petróleo, permitindo que empresas, investidores e formuladores de políticas antecipem tendências, mitiguem riscos e identifiquem oportunidades no mercado energético.
     """)
+
 
 elif aba_selecionada == "Resultados":
     st.header("Resultados")
@@ -209,7 +232,7 @@ elif aba_selecionada == "Resultados":
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
 
-elif aba_selecionada == "Simulação":
+elif aba_selecionada == "Simulação (deploy)":
     st.header("Simulação - Previsão do Preço do Petróleo")
     st.write("""
     Insira a data desejada para a previsão do preço do barril de petróleo.  
