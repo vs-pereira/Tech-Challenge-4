@@ -139,55 +139,37 @@ if aba_selecionada == "Contexto":
 elif aba_selecionada == "Dashboard":
     st.header("Dashboard")
     
-    # Exibe a imagem do dashboard (certifique-se de que "dash.png" esteja no repositório)
+    # Exibe a imagem do dashboard
     st.image("dash.png", use_container_width=True)
     
     st.write("""
     **Link do Dashboard:**  
     [Acesse o Dashboard Interativo](https://lookerstudio.google.com/reporting/03e2fa7d-0f1f-44c3-ad76-c381c03d85a0/page/qlD)
     
-    **Insights Sobre a Variação dos Preços do Petróleo (últimos 20 anos):**
+    **Insights Sobre a Variação dos Preços do Petróleo (Últimos 20 Anos):**
     
     1. **2011 – 2013: Altas Médias de Preços**  
-       Durante esse período, os preços médios anuais se mantiveram elevados devido a uma combinação de fatores.  
-       - **Fatores:**  
-         - Instabilidade geopolítica provocada pela Primavera Árabe, que gerou incertezas nas regiões produtoras.  
-         - Políticas da OPEP que restringiram a oferta em meio a temores de interrupções no fornecimento.  
-         - Demanda global robusta, especialmente de economias emergentes.
+       Durante esse período, os preços do petróleo se mantiveram em níveis elevados. Esse cenário foi impulsionado por uma demanda global robusta e por incertezas geopolíticas, como as decorrentes da Primavera Árabe, que afetaram a estabilidade dos países produtores. Além disso, medidas restritivas de produção adotadas por alguns membros da OPEP contribuíram para a manutenção dos preços elevados.
     
     2. **2008: Máxima Alta e Queda Abrupta**  
-       Em 2008, o mercado experimentou extremos – atingindo um pico de US$143,95 e, logo em seguida, uma queda para US$33,73.  
-       - **Fatores:**  
-         - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise.  
-         - A crise financeira global reduziu drasticamente a demanda e criou um excesso de oferta.
+       No auge de 2008, os preços chegaram a US$143,95, reflexo de um mercado aquecido pela alta demanda e especulação. Contudo, a crise financeira global que se seguiu resultou em uma queda abrupta, fazendo com que os preços despencassem para cerca de US$33,73, ilustrando a extrema volatilidade do mercado naquele ano.
     
     3. **2022: Segunda Maior Alta**  
-       Em 2022, os preços subiram para US$133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
-       - **Fatores:**  
-         - Conflito na Ucrânia e sanções à Rússia reduziram a oferta global.  
-         - Recuperação econômica pós-pandemia impulsionou a demanda por energia.  
-         - Decisões da OPEP+ para manter cortes na produção.
+       Em 2022, os preços do petróleo alcançaram US$133,18. Esse aumento foi impulsionado por um cenário marcado por tensões geopolíticas – especialmente o conflito na Ucrânia – aliado à recuperação econômica pós-pandemia, que reativou a demanda global por energia mesmo em meio a restrições na oferta.
     
     4. **2020: Menor Preço da Série**  
-       O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de US$9,12, devido a uma combinação sem precedentes de fatores.  
-       - **Fatores:**  
-         - A pandemia de COVID-19 resultou em lockdowns globais e queda acentuada na demanda.  
-         - Guerra de preços entre grandes produtores agravou o excesso de oferta.  
-         - Problemas logísticos e de armazenamento contribuíram para a queda.
+       O ano de 2020 foi atípico, com os preços caindo para cerca de US$9,12. Essa queda recorde ocorreu devido à drástica redução da demanda global em decorrência dos lockdowns e outras medidas relacionadas à pandemia de COVID-19, somada a uma intensa guerra de preços entre os principais produtores, que exacerbava o excesso de oferta.
     
     5. **2016: Segundo Menor Preço**  
-       Em 2016, o preço do petróleo caiu para cerca de US$26,01, refletindo um período de reequilíbrio no mercado.  
-       - **Fatores:**  
-         - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
-         - Incertezas macroeconômicas globais afetaram a demanda por energia.  
-         - Mercado ainda se recuperando da queda iniciada em 2014.
+       Em 2016, os preços atingiram aproximadamente US$26,01. Esse episódio foi marcado pelo aumento significativo da produção de shale oil, sobretudo nos Estados Unidos, que, aliado a uma resposta inicial tardia da OPEP para cortar a produção, resultou em um desequilíbrio entre oferta e demanda e, consequentemente, em preços mais baixos.
     
     **Fontes:**
-    - U.S. Energy Information Administration – [Petroleum & Other Liquids](https://www.eia.gov/petroleum/)
-    - Reuters – [Oil Prices Surge Amid Ukraine Crisis](https://www.reuters.com/business/energy/)
-    - Bloomberg – [Analysis on Oil Price Collapse 2016](https://www.bloomberg.com/energy)
-    - U.S. EIA – [Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)
+    - U.S. Energy Information Administration (EIA) – [Petroleum & Other Liquids](https://www.eia.gov/petroleum/)
+    - Reuters – [Energy News](https://www.reuters.com/business/energy/)
+    - Bloomberg – [Energy](https://www.bloomberg.com/energy)
+    - BP Statistical Review of World Energy – [BP Energy Review](https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html)
     """)
+
 
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
