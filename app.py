@@ -181,12 +181,6 @@ elif aba_selecionada == "Dashboard":
          - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
          - Incertezas macroeconômicas globais afetaram a demanda por energia.  
          - Mercado ainda se recuperando da queda iniciada em 2014.
-    
-    **Fontes:**
-    - U.S. Energy Information Administration – [Petroleum & Other Liquids](https://www.eia.gov/petroleum/)
-    - Reuters – [Oil Prices Surge Amid Ukraine Crisis](https://www.reuters.com/business/energy/)
-    - Bloomberg – [Analysis on Oil Price Collapse 2016](https://www.bloomberg.com/energy)
-    - U.S. EIA – [Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)
     """)
 
 elif aba_selecionada == "Metodologia":
