@@ -249,7 +249,7 @@ elif aba_selecionada == "Resultados":
     Para mais detalhes, consulte o anexo em PDF disponível no repositório.
     """)
 
-elif aba_selecionada == "Simulação (deploy)":
+elif aba_selecionada == "Simulação":
     st.header("Simulação - Previsão do Preço do Petróleo")
     st.write("""
     Insira a data desejada para a previsão do preço do barril de petróleo.  
