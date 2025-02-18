@@ -149,7 +149,7 @@ elif aba_selecionada == "Dashboard":
     **Insights Sobre a Variação dos Preços do Petróleo (últimos 20 anos):**
 
     1. **2008: Máxima Alta e Queda Abrupta**  
-       Em 2008, o mercado experimentou extremos – atingindo um pico de US$ 143,95 e, logo em seguida, uma queda para US$33,73.  
+       Em 2008, o mercado experimentou extremos – atingindo um pico de USD143,95 e, logo em seguida, uma queda para USD33,73.  
        - **Fatores:**  
          - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise.  
          - A crise financeira global reduziu drasticamente a demanda e criou um excesso de oferta.
@@ -162,21 +162,21 @@ elif aba_selecionada == "Dashboard":
          - Demanda global robusta, especialmente de economias emergentes.
     
     3. **2016: Segundo Menor Preço**  
-       Em 2016, o preço do petróleo caiu para cerca de US$26,01, refletindo um período de reequilíbrio no mercado.  
+       Em 2016, o preço do petróleo caiu para cerca de USD26,01, refletindo um período de reequilíbrio no mercado.  
        - **Fatores:**  
          - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
          - Incertezas macroeconômicas globais afetaram a demanda por energia.  
          - Mercado ainda se recuperando da queda iniciada em 2014.
 
     4. **2020: Menor Preço da Série**  
-       O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de US$9,12, devido a uma combinação sem precedentes de fatores.  
+       O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de USD9,12, devido a uma combinação sem precedentes de fatores.  
        - **Fatores:**  
          - A pandemia de COVID-19 resultou em lockdowns globais e queda acentuada na demanda.  
          - Guerra de preços entre grandes produtores agravou o excesso de oferta.  
          - Problemas logísticos e de armazenamento contribuíram para a queda.
     
     5. **2022: Segunda Maior Alta**  
-       Em 2022, os preços subiram para US$133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
+       Em 2022, os preços subiram para USD133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
        - **Fatores:**  
          - Conflito na Ucrânia e sanções à Rússia reduziram a oferta global.  
          - Recuperação econômica pós-pandemia impulsionou a demanda por energia.  
