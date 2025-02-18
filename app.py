@@ -95,7 +95,7 @@ def predict_future_for_date(selected_date, num_prediction):
 # 3. Estrutura do App Streamlit (Abas)
 # ====================================================================
 
-st.title("Tech Challenge 4 - Previsão do Preço do Petróleo")
+st.title("Previsão do Preço do Petróleo")
 st.markdown("**Usuário:** vs-pereira | **Repositório:** [Tech-Challenge-4](https://github.com/vs-pereira/Tech-Challenge-4)")
 
 abas = ["Contexto", "Dashboard", "Metodologia", "Resultados", "Simulação"]
