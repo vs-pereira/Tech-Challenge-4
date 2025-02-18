@@ -185,36 +185,48 @@ elif aba_selecionada == "Dashboard":
 
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
+    
+    # Exibe uma imagem ilustrativa do Python, que deve estar no repositório
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/python_image.png", use_container_width=True)
+    
     st.write("""
     ### Origem e Análise dos Dados
 
-    Os dados históricos do preço do petróleo foram obtidos de fontes públicas e confiáveis, que agregam informações de diversos mercados internacionais. Após a extração, os dados foram cuidadosamente processados e armazenados em um arquivo Microsoft Excel. Em seguida, utilizamos Python, com as bibliotecas **Pandas** e **NumPy**, para realizar uma análise exploratória detalhada. Essa etapa envolveu a limpeza dos dados, a correção de inconsistências, a identificação de outliers e a análise de tendências e sazonalidades que influenciam o comportamento do mercado.
+    Os dados históricos do preço do petróleo utilizados nesta análise foram extraídos do IPEA, abrangendo o período de **20/05/1987 até 10/02/2025**. Esse conjunto de dados reúne informações diárias que refletem as variações do preço do barril ao longo dos anos, permitindo uma análise aprofundada das tendências e dos fatores que influenciam esse mercado.
 
-    Visualizações interativas foram construídas para examinar a evolução do preço do petróleo ao longo do tempo, permitindo a identificação de padrões e a compreensão das dinâmicas de oferta e demanda, bem como dos impactos de eventos geopolíticos e crises econômicas.
+    Inicialmente, os dados foram organizados e salvos em um arquivo Microsoft Excel, o que facilitou a sua manipulação e análise com Python. Utilizamos as bibliotecas **Pandas** e **NumPy** para realizar uma limpeza minuciosa dos dados, corrigindo inconsistências e estruturando a série temporal de forma que fosse possível identificar padrões, sazonalidades e eventos extraordinários que pudessem explicar oscilações históricas.
+
+    Em seguida, foram construídas diversas visualizações interativas que ajudaram a demonstrar a evolução dos preços ao longo do tempo e a revelar relações entre os dados. Esse processo foi fundamental para entender como eventos econômicos e geopolíticos impactaram o mercado do petróleo.
 
     ### Aplicação do Modelo LSTM
 
-    Para a previsão dos preços futuros, implementamos uma rede neural do tipo **LSTM** (Long Short-Term Memory), reconhecida por sua capacidade de capturar dependências temporais e relacionamentos de longo prazo em séries temporais. Os dados foram previamente normalizados utilizando o **MinMaxScaler**, garantindo que a rede neural trabalhasse com uma escala consistente, o que é crucial para o desempenho do modelo.
+    Para prever os preços futuros do petróleo, implementamos um modelo de rede neural do tipo **LSTM** (Long Short-Term Memory). Este modelo é especialmente indicado para trabalhar com dados sequenciais, pois consegue capturar dependências de longo prazo presentes em séries temporais.
 
-    O conjunto de dados foi dividido em 80% para treinamento e 20% para validação, permitindo uma avaliação robusta da performance do modelo. Foram calculadas diversas métricas de desempenho, incluindo:
+    O processo de modelagem envolveu as seguintes etapas:
     
-    - **Coeficiente de Determinação (R²):** Mede a proporção da variância dos dados que é explicada pelo modelo. Valores próximos de 1 indicam um ajuste excelente.
-    - **Erro Médio Quadrático (MSE):** Indica a média dos quadrados dos erros de previsão, destacando a dispersão dos resíduos.
-    - **Erro Médio Absoluto (MAE):** Fornece a média dos erros absolutos, representando a magnitude média dos desvios.
-    - **Erro Percentual Absoluto Médio (MAPE):** Expressa a precisão das previsões em termos percentuais.
-    - **Raiz do Erro Médio Quadrático (RMSE):** É a raiz quadrada do MSE, interpretada nas mesmas unidades do preço.
+    - **Normalização dos Dados:** Utilizamos o **MinMaxScaler** para transformar os preços em uma escala entre 0 e 1. Essa etapa é crucial para garantir que o modelo LSTM opere com dados em uma faixa uniforme, facilitando o treinamento e melhorando a estabilidade dos cálculos.
+    
+    - **Criação de Sequências:** A série histórica foi dividida em sequências de um comprimento fixo (no nosso caso, 10 dias). Cada sequência serve como entrada para o modelo, enquanto o valor seguinte na sequência é utilizado como saída esperada. Essa abordagem permite ao modelo aprender padrões temporais e fazer previsões baseadas em janelas deslizantes.
+    
+    - **Divisão dos Dados:** Os dados foram divididos em 80% para treinamento e 20% para teste. Essa separação assegura que o modelo seja treinado com a maioria dos dados disponíveis e, ao mesmo tempo, validado com um subconjunto separado para avaliar sua performance.
+    
+    - **Treinamento do Modelo:** Com o conjunto de dados preparado, treinamos a rede LSTM, ajustando os pesos e viéses para minimizar a função de perda (Erro Quadrático Médio, MSE). O treinamento foi realizado no **Google Colab**, que oferece recursos computacionais avançados (incluindo GPUs) para acelerar o processo.
 
-    Esses indicadores foram essenciais para validar a eficácia do modelo, garantindo que as previsões geradas fossem confiáveis para a tomada de decisões estratégicas.
+    - **Avaliação do Modelo:** Após o treinamento, diversas métricas foram calculadas para avaliar a performance do modelo, incluindo:
+        - **Coeficiente de Determinação (R²)**
+        - **Erro Médio Quadrático (MSE)**
+        - **Erro Médio Absoluto (MAE)**
+        - **Erro Percentual Absoluto Médio (MAPE)**
+        - **Raiz do Erro Médio Quadrático (RMSE)**
+        
+      Essas métricas ajudam a mensurar a capacidade do modelo em prever os preços e a identificar eventuais discrepâncias entre os valores reais e os previstos.
 
-    ### Execução no Google Colab
+    ### Execução no Google Colab e Integração
 
-    Todo o processo de análise e treinamento do modelo foi conduzido no **Google Colab**, uma plataforma que oferece acesso gratuito a recursos computacionais robustos, incluindo GPUs. Essa infraestrutura permitiu a execução eficiente do código Python, facilitou a colaboração entre pesquisadores e possibilitou a manipulação de grandes conjuntos de dados com rapidez e precisão.
+    Toda a análise, desde a extração dos dados até o treinamento do modelo, foi realizada no **Google Colab**. Essa plataforma permitiu a execução de códigos Python de forma colaborativa e com acesso a recursos computacionais robustos, sem a necessidade de configurar um ambiente local complexo.
 
-    ### Integração e Aplicação
-
-    A integração da análise detalhada dos dados históricos com o modelo LSTM permitiu o desenvolvimento de um dashboard interativo que une storytelling e análises preditivas avançadas. Essa solução oferece insights valiosos sobre as oscilações do preço do petróleo, permitindo que empresas, investidores e formuladores de políticas antecipem tendências, mitiguem riscos e identifiquem oportunidades no mercado energético.
+    Por fim, os resultados do modelo LSTM foram integrados a um dashboard interativo que combina storytelling com análises preditivas. Essa solução proporciona insights valiosos, permitindo uma compreensão aprofundada das oscilações do preço do petróleo e ajudando na tomada de decisões estratégicas no mercado energético.
     """)
-
 
 elif aba_selecionada == "Resultados":
     st.header("Resultados")
