@@ -266,7 +266,7 @@ elif aba_selecionada == "Simulação (deploy)":
     
     if st.button("Prever"):
         # Última data histórica (assumindo que df['Data'] esteja ordenado)
-        last_hist_date = pd.to_datetime(df['Data'].iloc[-1])  # ex.: 10/02/2025
+        last_hist_date = pd.to_datetime(df['Data'].iloc[-1])
         selected_date_dt = pd.to_datetime(data_simulacao)
         num_days_forecast = (selected_date_dt - last_hist_date).days
         if num_days_forecast <= 0:
