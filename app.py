@@ -149,7 +149,7 @@ elif aba_selecionada == "Dashboard":
     **Insights Sobre a Variação dos Preços do Petróleo (últimos 20 anos):**
 
     1. **2008: Máxima Alta e Queda Abrupta**  
-       Em 2008, o mercado experimentou extremos – atingindo um pico de US$143,95 e, logo em seguida, uma queda para US$33,73.  
+       Em 2008, o mercado experimentou extremos – atingindo um pico de US$ 143,95 e, logo em seguida, uma queda para US$33,73.  
        - **Fatores:**  
          - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise.  
          - A crise financeira global reduziu drasticamente a demanda e criou um excesso de oferta.
