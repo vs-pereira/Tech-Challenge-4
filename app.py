@@ -151,58 +151,43 @@ elif aba_selecionada == "Dashboard":
     1. **2011 – 2013: Altas Médias de Preços**  
        Durante esse período, os preços médios anuais se mantiveram elevados devido a uma combinação de fatores.  
        - **Fatores:**  
-         - Instabilidade geopolítica provocada pela Primavera Árabe, que gerou incertezas na região produtora.  
+         - Instabilidade geopolítica provocada pela Primavera Árabe, que gerou incertezas nas regiões produtoras.  
          - Políticas da OPEP que restringiram a oferta em meio a temores de interrupções no fornecimento.  
-         - Demanda global robusta, especialmente de economias emergentes.  
-       - **Fontes:**  
-         - [OPEC Annual Statistical Bulletin](https://www.opec.org/opec_web/en/publications/202.htm)  
-         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
+         - Demanda global robusta, especialmente de economias emergentes.
     
     2. **2008: Máxima Alta e Queda Abrupta**  
        Em 2008, o mercado experimentou extremos – atingindo um pico de US$143,95 e, logo em seguida, uma queda para US$33,73.  
        - **Fatores:**  
-         - Período de alta especulativa e demanda aquecida, que elevou os preços antes da crise.  
-         - A crise financeira global, iniciada em setembro, provocou uma queda drástica na demanda e um excesso de oferta.  
-       - **Fontes:**  
-         - [U.S. Energy Information Administration – Petroleum & Other Liquids](https://www.eia.gov/petroleum/)  
-         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
+         - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise.  
+         - A crise financeira global reduziu drasticamente a demanda e criou um excesso de oferta.
     
     3. **2022: Segunda Maior Alta**  
        Em 2022, os preços subiram para US$133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
        - **Fatores:**  
-         - O conflito na Ucrânia e as sanções sobre a Rússia reduziram a oferta global.  
-         - A recuperação econômica pós-pandemia impulsionou a demanda por energia.  
-         - Decisões da OPEP+ de manter cortes na produção para sustentar os preços.  
-       - **Fontes:**  
-         - [Reuters – Oil Prices Surge Amid Ukraine Crisis](https://www.reuters.com/business/energy/)  
-         - [U.S. Energy Information Administration](https://www.eia.gov/petroleum/)
+         - Conflito na Ucrânia e sanções à Rússia reduziram a oferta global.  
+         - Recuperação econômica pós-pandemia impulsionou a demanda por energia.  
+         - Decisões da OPEP+ para manter cortes na produção.
     
     4. **2020: Menor Preço da Série**  
-       O ano de 2020 ficou marcado pelo menor preço registrado, em torno de US$9,12, devido a fatores sem precedentes.  
+       O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de US$9,12, devido a uma combinação sem precedentes de fatores.  
        - **Fatores:**  
-         - A pandemia de COVID-19 resultou em lockdowns globais e uma queda acentuada na demanda.  
-         - Uma guerra de preços entre grandes produtores exacerbou o excesso de oferta.  
-         - Problemas logísticos e desafios de armazenamento contribuíram para a queda.  
-       - **Fontes:**  
-         - [U.S. Energy Information Administration – Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)  
-         - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)
+         - A pandemia de COVID-19 resultou em lockdowns globais e queda acentuada na demanda.  
+         - Guerra de preços entre grandes produtores agravou o excesso de oferta.  
+         - Problemas logísticos e de armazenamento contribuíram para a queda.
     
     5. **2016: Segundo Menor Preço**  
        Em 2016, o preço do petróleo caiu para cerca de US$26,01, refletindo um período de reequilíbrio no mercado.  
        - **Fatores:**  
-         - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção, levando a um excesso de oferta.  
+         - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
          - Incertezas macroeconômicas globais afetaram a demanda por energia.  
-         - O mercado ainda se recuperava da queda iniciada em 2014.  
-       - **Fontes:**  
-         - [Reuters – Oil Price Analysis](https://www.reuters.com/business/energy/)  
-         - [Bloomberg – Analysis on Oil Price Collapse 2016](https://www.bloomberg.com/energy)
+         - Mercado ainda se recuperando da queda iniciada em 2014.
     
-    **Fontes Gerais:**  
-    - [Reuters – Global Oil Markets](https://www.reuters.com/business/energy/)  
-    - [U.S. Energy Information Administration](https://www.eia.gov/petroleum/)  
-    - [OPEC Annual Statistical Bulletin](https://www.opec.org/opec_web/en/publications/202.htm)
+    **Fontes:**
+    - U.S. Energy Information Administration – [Petroleum & Other Liquids](https://www.eia.gov/petroleum/)
+    - Reuters – [Oil Prices Surge Amid Ukraine Crisis](https://www.reuters.com/business/energy/)
+    - Bloomberg – [Analysis on Oil Price Collapse 2016](https://www.bloomberg.com/energy)
+    - U.S. EIA – [Impact of the Coronavirus on the Oil Market](https://www.eia.gov/todayinenergy/detail.php?id=42492)
     """)
-
 
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
