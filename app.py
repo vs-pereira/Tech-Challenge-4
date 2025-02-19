@@ -191,7 +191,7 @@ elif aba_selecionada == "Metodologia":
 
     Os dados históricos do preço do petróleo utilizados nesta análise foram extraídos do IPEA, abrangendo o período de **20/05/1987 até 10/02/2025**. Esse conjunto de dados reúne informações diárias que refletem as variações do preço do barril ao longo dos anos, permitindo uma análise aprofundada das tendências e dos fatores que influenciam esse mercado.
 
-    Inicialmente, os dados foram organizados e salvos em um arquivo Microsoft Excel, o que facilitou a sua manipulação e análise com Python. Utilizamos as bibliotecas **Pandas** e **NumPy** para realizar uma limpeza minuciosa dos dados, corrigindo inconsistências e estruturando a série temporal de forma que fosse possível identificar padrões, sazonalidades e eventos extraordinários que pudessem explicar oscilações históricas.
+    Inicialmente, os dados foram organizados e salvos em um arquivo de Excel, o que facilitou a sua manipulação e análise com Python. Utilizamos as bibliotecas **Pandas** e **NumPy** para realizar uma limpeza minuciosa dos dados, corrigindo inconsistências e estruturando a série temporal de forma que fosse possível identificar padrões, sazonalidades e eventos extraordinários que pudessem explicar oscilações históricas.
 
     Em seguida, foram construídas diversas visualizações interativas que ajudaram a demonstrar a evolução dos preços ao longo do tempo e a revelar relações entre os dados. Esse processo foi fundamental para entender como eventos econômicos e geopolíticos impactaram o mercado do petróleo.
 
@@ -201,7 +201,7 @@ elif aba_selecionada == "Metodologia":
 
     O processo de modelagem envolveu as seguintes etapas:
     
-    - **Normalização dos Dados:** Utilizamos o **MinMaxScaler** para transformar os preços em uma escala entre 0 e 1. Essa etapa é crucial para garantir que o modelo LSTM opere com dados em uma faixa uniforme, facilitando o treinamento e melhorando a estabilidade dos cálculos.
+    - **Normalização dos Dados:** Utilizamos o **MinMaxScaler** para transformar os preços em uma escala entre 0 e 1. Essa etapa é essencial para garantir que o modelo LSTM opere com dados em uma faixa uniforme.
     
     - **Criação de Sequências:** A série histórica foi dividida em sequências de um comprimento fixo (no nosso caso, 10 dias). Cada sequência serve como entrada para o modelo, enquanto o valor seguinte na sequência é utilizado como saída esperada. Essa abordagem permite ao modelo aprender padrões temporais e fazer previsões baseadas em janelas deslizantes.
     
@@ -220,7 +220,7 @@ elif aba_selecionada == "Metodologia":
 
     ### Execução no Google Colab e Integração
 
-    Toda a análise, desde a extração dos dados até o treinamento do modelo, foi realizada no **Google Colab**. Essa plataforma permitiu a execução de códigos Python de forma colaborativa e com acesso a recursos computacionais robustos, sem a necessidade de configurar um ambiente local complexo.
+    Toda a análise, desde a extração dos dados até o treinamento do modelo, foi realizada no **Google Colab**. Essa plataforma permitiu a execução de códigos Python de forma colaborativa e com acesso a recursos computacionais robustos.
 
     Por fim, os resultados do modelo LSTM foram integrados a um dashboard interativo que combina storytelling com análises preditivas. Essa solução proporciona insights valiosos, permitindo uma compreensão aprofundada das oscilações do preço do petróleo e ajudando na tomada de decisões estratégicas no mercado energético.
     """)
@@ -233,9 +233,9 @@ elif aba_selecionada == "Resultados":
     st.write("""
     **Resultados Alcançados:**
 
-    O modelo LSTM demonstrou robustez e uma notável capacidade preditiva ao analisar os dados históricos do preço do petróleo. 
+    O modelo LSTM demonstrou robustez e uma capacidade preditiva relevante ao analisar os dados históricos do preço do petróleo. 
     A rede neural foi capaz de capturar as complexas dinâmicas do mercado, evidenciadas por um elevado ajuste aos dados e baixos índices de erro. 
-    Esses resultados fundamentam a utilização do modelo para a previsão de preços futuros, contribuindo para decisões estratégicas em cenários de volatilidade.
+    Esses resultados sustentam a utilização do modelo para a previsão de preços futuros, contribuindo para decisões estratégicas em cenários de volatilidade.
     
     **Métricas de Desempenho:**
     - *R² Score:* 0.8693
