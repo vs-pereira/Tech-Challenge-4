@@ -104,7 +104,7 @@ aba_selecionada = st.sidebar.selectbox("Escolha uma aba", abas)
 if aba_selecionada == "Contexto":
     st.header("Explorando as Profundezas das Oscilações no Mercado do Petróleo")
     st.write("""
-    O mercado global de petróleo é uma arena dinâmica e multifacetada, onde cada variação no preço do barril reflete um intricado jogo de forças econômicas, políticas e tecnológicas. As flutuações observadas não são números isolados, mas o resultado de interações complexas entre eventos geopolíticos, crises financeiras, transformações na demanda energética e inovações disruptivas na cadeia produtiva do petróleo.
+    O mercado global de petróleo é uma arena dinâmica e com diversos ângulos, onde cada variação no preço do barril reflete uma série de forças econômicas, políticas e tecnológicas. As flutuações observadas em seus preços não são números isolados, mas o resultado de interações complexas entre eventos geopolíticos, crises financeiras, transformações na demanda energética e inovações disruptivas na cadeia produtiva do petróleo.
     """)
     
     # Exibe imagem ilustrativa sobre o mercado de petróleo
@@ -112,11 +112,11 @@ if aba_selecionada == "Contexto":
              caption="Oscilações no Mercado do Petróleo", width=500)
     
     st.write("""
-    Este dashboard interativo oferece uma análise aprofundada desses fenômenos, explorando desde a influência dos conflitos internacionais e mudanças nas políticas energéticas até o impacto de avanços tecnológicos que redefinem tanto a extração quanto a utilização dessa commodity estratégica. A combinação de dados históricos e modelos avançados de machine learning possibilita identificar padrões e prever tendências de curto prazo com alta confiabilidade, convertendo dados complexos em insights claros e acionáveis para investidores, gestores e formuladores de políticas.
+    Este dashboard interativo oferece uma análise aprofundada desses fenômenos, explorando a influência de diferentes como causas que influenciaram em diversos momentos, tais como conflitos internacionais e mudanças nas políticas energéticas. A combinação de dados históricos e modelos avançados de machine learning possibilita identificar padrões e prever tendências de curto prazo com alta confiabilidade, convertendo dados complexos em insights claros e acionáveis para investidores, gestores e formuladores de políticas.
     """)
     
     st.write("""
-    Para uma compreensão integrada do mercado, utilizamos ferramentas poderosas para a visualização e análise dos dados. A estrutura do MVP foi construída com uma abordagem que alia storytelling e análise quantitativa, possibilitando uma tomada de decisão mais informada e estratégica em um cenário global em constante transformação.
+    Para uma compreensão mais ampla do mercado, utilizamos ferramentas poderosas para a visualização e análise dos dados. A estrutura do MVP foi construída com uma abordagem que alia storytelling e análises quantitativas, possibilitando uma tomada de decisão mais informada e estratégica em um cenário global em constante transformação.
     """)
     
     # Exibe imagem ilustrativa da indústria do petróleo
@@ -150,34 +150,34 @@ elif aba_selecionada == "Dashboard":
 
     1. **2008: Máxima Alta e Queda Abrupta**  
        Em 2008, o mercado experimentou extremos – atingindo um pico de USD143,95 e, logo em seguida, uma queda para USD33,73.  
-       - **Fatores:**  
-         - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise.  
+       - **Principais fatores:**  
+         - Período de alta especulativa e demanda aquecida que elevou os preços antes da crise do subprime nos EUA.  
          - A crise financeira global reduziu drasticamente a demanda e criou um excesso de oferta.
 
     2. **2011 – 2013: Altas Médias de Preços**  
        Durante esse período, os preços médios anuais se mantiveram elevados devido a uma combinação de fatores.  
-       - **Fatores:**  
+       - **Principais fatores:**  
          - Instabilidade geopolítica provocada pela Primavera Árabe, que gerou incertezas nas regiões produtoras.  
          - Políticas da OPEP que restringiram a oferta em meio a temores de interrupções no fornecimento.  
          - Demanda global robusta, especialmente de economias emergentes.
     
     3. **2016: Segundo Menor Preço**  
        Em 2016, o preço do petróleo caiu para cerca de USD26,01, refletindo um período de reequilíbrio no mercado.  
-       - **Fatores:**  
+       - **Principais fatores:**  
          - Aumento da produção de shale oil nos EUA e relutância inicial da OPEP em cortar a produção levaram a um excesso de oferta.  
          - Incertezas macroeconômicas globais afetaram a demanda por energia.  
          - Mercado ainda se recuperando da queda iniciada em 2014.
 
     4. **2020: Menor Preço da Série**  
        O ano de 2020 ficou marcado pelo menor preço já registrado, em torno de USD9,12, devido a uma combinação sem precedentes de fatores.  
-       - **Fatores:**  
+       - **Principais fatores:**  
          - A pandemia de COVID-19 resultou em lockdowns globais e queda acentuada na demanda.  
          - Guerra de preços entre grandes produtores agravou o excesso de oferta.  
          - Problemas logísticos e de armazenamento contribuíram para a queda.
     
     5. **2022: Segunda Maior Alta**  
        Em 2022, os preços subiram para USD133,18, impulsionados por fatores que alteraram significativamente o equilíbrio entre oferta e demanda.  
-       - **Fatores:**  
+       - **Principais fatores:**  
          - Conflito na Ucrânia e sanções à Rússia reduziram a oferta global.  
          - Recuperação econômica pós-pandemia impulsionou a demanda por energia.  
          - Decisões da OPEP+ para manter cortes na produção.
@@ -185,9 +185,6 @@ elif aba_selecionada == "Dashboard":
 
 elif aba_selecionada == "Metodologia":
     st.header("Metodologia do Modelo Desenvolvido")
-    
-    # Exibe uma imagem ilustrativa do Python
-    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/python_image.png", use_container_width=True)
     
     st.write("""
     ### Origem e Análise dos Dados
@@ -227,6 +224,9 @@ elif aba_selecionada == "Metodologia":
 
     Por fim, os resultados do modelo LSTM foram integrados a um dashboard interativo que combina storytelling com análises preditivas. Essa solução proporciona insights valiosos, permitindo uma compreensão aprofundada das oscilações do preço do petróleo e ajudando na tomada de decisões estratégicas no mercado energético.
     """)
+    
+    # Exibe uma imagem ilustrativa do Python
+    st.image("https://raw.githubusercontent.com/vs-pereira/Tech-Challenge-4/main/python_image.png", use_container_width=True)
 
 elif aba_selecionada == "Resultados":
     st.header("Resultados")
